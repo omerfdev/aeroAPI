@@ -22,23 +22,24 @@ func main() {
     var arrivingFlights []Flight
     var departingFlights []Flight
 
-    // Selectorları belirleyin
-    c.OnHTML(".arriving-flights .flight-row", func(e *colly.HTMLElement) {
+    // Gelen uçuşlar için selector
+    c.OnHTML("#tab_arrival .fligtInfosContent", func(e *colly.HTMLElement) {
         flight := Flight{
-            FlightNumber: e.ChildText(".flight-number"),
-            Destination:  e.ChildText(".flight-destination"),
-            Time:         e.ChildText(".flight-time"),
-            Status:       e.ChildText(".flight-status"),
+            FlightNumber: e.ChildText(".fi-flight-no"),
+            Destination:  e.ChildText(".fi-flight-from"),
+            Time:         e.ChildText(".fi-flight-time"),
+            Status:       e.ChildText(".fi-flight-status"),
         }
         arrivingFlights = append(arrivingFlights, flight)
     })
 
-    c.OnHTML(".departing-flights .flight-row", func(e *colly.HTMLElement) {
+    // Giden uçuşlar için selector
+    c.OnHTML("#tab_departure .fligtInfosContent", func(e *colly.HTMLElement) {
         flight := Flight{
-            FlightNumber: e.ChildText(".flight-number"),
-            Destination:  e.ChildText(".flight-destination"),
-            Time:         e.ChildText(".flight-time"),
-            Status:       e.ChildText(".flight-status"),
+            FlightNumber: e.ChildText(".fi-flight-no"),
+            Destination:  e.ChildText(".fi-flight-to"),
+            Time:         e.ChildText(".fi-flight-time"),
+            Status:       e.ChildText(".fi-flight-status"),
         }
         departingFlights = append(departingFlights, flight)
     })
